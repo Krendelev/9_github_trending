@@ -18,11 +18,11 @@ def get_trending_repositories(top_size, date):
 
 def print_trending_repositories(repos):
     print('Stars Issues URL')
-    for item in top_repos:
+    for repo in top_repos:
         print('{0:>5} {1:^6} {2}'.format(
-            item['stargazers_count'],
-            item['open_issues_count'],
-            item['html_url']
+            repo['stargazers_count'],
+            repo['open_issues_count'],
+            repo['html_url']
             )
         )
 
