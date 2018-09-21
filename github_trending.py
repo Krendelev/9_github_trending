@@ -21,15 +21,13 @@ def get_open_issues_amount(full_repo_name):
     return len(requests.get(url).json())
 
 
-def print_trending_repositories(repos):
-    print('Stars Issues URL')
-    for repo in top_repos:
-        print('{1:>5} {0:^6} {2}'.format(
-            get_open_issues_amount(repo['full_name']),
-            repo['stargazers_count'],
-            repo['html_url']
-            )
+def print_trending_repositories(repo, issues_count):
+    print('{0:>5} {2:^6} {1}'.format(
+        repo['stargazers_count'],
+        repo['html_url'],
+        issues_count
         )
+    )
 
 
 if __name__ == '__main__':
@@ -40,6 +38,9 @@ if __name__ == '__main__':
             top_size, get_starting_date(days)
             )
     except requests.exceptions.ConnectionError:
-        print('Failed to establish connection to api.github.com')
-    else:
-        print_trending_repositories(top_repos)
+        exit('Failed to establish connection to api.github.com')
+    print('Stars Issues URL')
+    for repo in top_repos:
+        print_trending_repositories(
+            repo, get_open_issues_amount(repo['full_name'])
+            )
